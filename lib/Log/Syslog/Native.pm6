@@ -1,7 +1,7 @@
 use NativeCall;
 
 class Log::Syslog::Native {
-    enum LogLevel <Emergency Alert Critical Error Warnimg Notice Info Debug>;
+    enum LogLevel <Emergency Alert Critical Error Warning Notice Info Debug>;
     enum LogFacility (  :Kern( 0 +< 3),
                         :User( 1 +< 3),
                         :Mail( 2 +< 3),
@@ -33,4 +33,55 @@ class Log::Syslog::Native {
     has Str $.ident    = $*PROGRAM_NAME;
     has Int $.option   = Pid +| ODelay;
     has Int $.facility = Local0;
+
+    sub _syslog(Int, Str) is native is symbol('syslog') { ... }
+    sub _openlog(Str, Int, Int) is native is symbol('openlog') { ... }
+    sub _closelog() is native is symbol('closelog') { ... }
+
+    submethod BUILD(:$!ident, :$!option, :$!facility) {
+        _openlog($!ident, $!option, $!facility);
+    }
+
+    method emergency(Str $format, *@args) {
+        self.log(Emergency, $format, @args);
+    }
+
+    method alert(Str $format, *@args) {
+        self.log(Alert, $format, @args);
+    }
+    
+    method critical(Str $format, *@args) {
+        self.log(Critical, $format, @args);
+    }
+    
+    method error(Str $format, *@args) {
+        self.log(Error, $format, @args);
+    }
+    
+    method warnimg(Str $format, *@args) {
+        self.log(Warning, $format, @args);
+    }
+    
+    method notice(Str $format, *@args) {
+        self.log(Notice, $format, @args);
+    }
+
+    method info(Str $format, *@args) {
+        self.log(Info, $format, @args);
+    }
+    
+    method debug(Str $format, *@args) {
+        self.log(Info, $format, @args);
+    }
+
+    method log(LogLevel $priority, Str $format, *@args ) {
+        my $mess = sprintf $format, @args;
+        _syslog($priority.Int, $mess);
+
+    }
+
+    submethod DESTROY {
+        _closelog();
+    }
+    
 }

@@ -38,8 +38,10 @@ class Log::Syslog::Native {
     sub _openlog(Str, Int, Int) is native is symbol('openlog') { ... }
     sub _closelog() is native is symbol('closelog') { ... }
 
-    submethod BUILD(:$!ident, :$!option, :$!facility) {
-        _openlog($!ident, $!option, $!facility);
+    submethod BUILD(:$!ident = $*PROGRAM_NAME, :$option?, :$facility) {
+        $!option = $option // Pid +| ODelay;
+        $!facility = $facility // Local0;
+        _openlog(Str, $!option, $!facility);
     }
 
     method emergency(Str $format, *@args) {
@@ -75,7 +77,7 @@ class Log::Syslog::Native {
     }
 
     method log(LogLevel $priority, Str $format, *@args ) {
-        my $mess = sprintf $format, @args;
+        my $mess = "[{ $!ident }] " ~ sprintf $format, @args;
         _syslog($priority.Int, $mess);
 
     }

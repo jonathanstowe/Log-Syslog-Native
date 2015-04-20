@@ -23,7 +23,11 @@ Log::Syslog::Native::Debug
 );
 
 for @levs -> $lev {
-   lives_ok { $obj.log($lev, "[TEST] with " ~ $lev.key) }, "log with " ~ $lev.key;
+   lives_ok { $obj.log($lev, "[TEST] with " ~ $lev.key) }, "log() with " ~ $lev.key;
+   my $meth = $lev.key.lc;
+
+   ok $obj.can($meth), " can do $meth";
+   lives_ok { $obj."$meth"("[TEST] - test $meth method") }, "$meth method";
 }
 
 done();

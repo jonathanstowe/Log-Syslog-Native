@@ -60,7 +60,7 @@ class Log::Syslog::Native {
         self.log(Error, $format, @args);
     }
     
-    method warnimg(Str $format, *@args) {
+    method warning(Str $format, *@args) {
         self.log(Warning, $format, @args);
     }
     

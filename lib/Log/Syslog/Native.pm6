@@ -65,14 +65,13 @@ C<Log::Syslog::Native::> from user code.
 
     method new(Str :$ident, Int :$option, Facility :$facility)
 
-The constructor for the object.  C<ident> would normally set the identity
-field for the log messages and default to C<$*PROGRAM_NAME> but setting this
-is currently a no-op.  C<option> is the OR of log option enum values as
-described below, it defaults to C<Pid +| ODelay> which for most purposes
-should not need changing.  C<facility> is a value of the C<Facility> enum as
-described below, it defaults to C<Local0> and setting it may, depending on
-the syslog configuration on your system, alter how and where the messages are
-logged to.
+The constructor for the object.  C<ident> will set the identity field
+for the log messages and default to C<$*PROGRAM_NAME>.  C<option> is the
+OR of log option enum values as described below, it defaults to C<Pid +|
+ODelay> which for most purposes should not need changing.  C<facility>
+is a value of the C<Facility> enum as described below, it defaults to
+C<Local0> and setting it may, depending on the syslog configuration on
+your system, alter how and where the messages are logged to.
 
 =end pod
 
@@ -288,7 +287,9 @@ Log to stderr as well
     submethod BUILD(:$!ident = $*PROGRAM_NAME, :$option?, :$facility) {
         $!option = $option // Pid +| ODelay;
         $!facility = $facility // Local0;
-        _openlog(Str, $!option, $!facility);
+        my $i = $!ident;
+        explicitly-manage($i);
+        _openlog($i, $!option, $!facility);
     }
 
     #| log at priority C<Emergency>
@@ -335,7 +336,7 @@ Log to stderr as well
 
     #| log at given C<$priority>
     method log(LogLevel $priority, Str $format, *@args ) {
-        my $mess = "[{ $!ident }] " ~ sprintf $format, @args;
+        my $mess = sprintf $format, @args;
         _syslog($priority.Int, $mess);
 
     }

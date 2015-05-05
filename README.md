@@ -55,9 +55,8 @@ welcomed via github at
 I'm not able to test on a wide variety of platforms so any help there would be 
 appreciated.
 
-Things that I know don't work as of the initial release are:
+Things that I know don't work as of the current release are:
 
-    * Setting the ident is currently a no-op because "const char"
     * The built in sprintf is emulated because no varargs in NativeCall yet 
 
 Help with these is explicitly invited.

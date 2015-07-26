@@ -346,3 +346,4 @@ Log to stderr as well
     }
     
 }
+# vim: expandtab shiftwidth=4 ft=perl6

@@ -14,7 +14,7 @@
   "depends" : [
   ],
   "provides" : {
-    "Log::Syslog::Native" : "lib/Log/Syslog/Native.pm6"
+    "Log::Syslog::Native" : "lib/Log/Syslog/Native.pm"
   },
   "support" : {
     "source" : "git://github.com/jonathanstowe/Log-Syslog-Native.git"

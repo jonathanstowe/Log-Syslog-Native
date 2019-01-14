@@ -1,5 +1,5 @@
 
-use v6.c;
+use v6;
 
 use NativeCall;
 
@@ -9,7 +9,7 @@ use NativeCall;
 
 Log::Syslog::Native - access to POSIX syslog facility
 
-=end NAME 
+=end NAME
 
 =begin SYNOPSIS
 
@@ -75,41 +75,41 @@ your system, alter how and where the messages are logged to.
 
 =end pod
 
-class Log::Syslog::Native:ver<0.0.7>:auth<github:jonathanstowe> {
+class Log::Syslog::Native:ver<0.0.8>:auth<github:jonathanstowe>:api<1.0> {
 
 =begin pod
 
 =head2 enum LogLevel
 
 These correspond to the log C<priority> and will typically be passed to the
-C<log> method. The exact meaning of the priorites may depend on the 
+C<log> method. The exact meaning of the priorites may depend on the
 system's logging configuration, but the descriptions come from the syslog.h.
 
-=item Emergency 
+=item Emergency
 
 System is unusable
 
-=item Alert 
+=item Alert
 
 Action must be taken immediately
 
-=item Critical 
+=item Critical
 
 Critical conditions
 
-=item Error 
+=item Error
 
 Error conditions
 
-=item Warning 
+=item Warning
 
 Warning conditions
 
-=item Notice 
+=item Notice
 
 Normal but significant condition
 
-=item Info 
+=item Info
 
 Informational
 
@@ -141,7 +141,7 @@ Random user-level messages
 
 =item Mail
 
-Mail system 
+Mail system
 
 =item Daemon
 
@@ -181,11 +181,11 @@ FTP daemon
 
 =item Local0
 
-Reserved for local use 
+Reserved for local use
 
 =item Local1
 
-Reserved for local use 
+Reserved for local use
 
 =item Local2
 
@@ -213,7 +213,7 @@ Reserved for local use
 
 =end pod
 
-    enum LogFacility (  
+    enum LogFacility (
                         :Kernel( 0 +< 3),
                         :User( 1 +< 3),
                         :Mail( 2 +< 3),
@@ -268,10 +268,10 @@ Log to stderr as well
 
 =end pod
 
-    enum LogOptions (   
-                        :Pid(0x01), 
-                        :Console(0x02), 
-                        :ODelay(0x04), 
+    enum LogOptions (
+                        :Pid(0x01),
+                        :Console(0x02),
+                        :ODelay(0x04),
                         :NDelay(0x08),
                         :NoWait(0x10),
                         :Perror(0x20));
@@ -284,7 +284,7 @@ Log to stderr as well
     sub _openlog(Str, int32, int32) is native is symbol('openlog') { ... }
     sub _closelog() is native is symbol('closelog') { ... }
 
-    submethod BUILD(:$!ident = $*PROGRAM-NAME, :$option?, :$facility) {
+    submethod BUILD(:$!ident = $*PROGRAM-NAME, :$option, :$facility) {
         $!option = $option // Pid +| ODelay;
         $!facility = $facility // Local0;
         my $i = $!ident;
@@ -303,7 +303,7 @@ Log to stderr as well
     method alert(Str $format, *@args) {
         self.log(Alert, $format, @args);
     }
-    
+
     #| log at priority C<Critical>
     method critical(Str $format, *@args) {
         self.log(Critical, $format, @args);
@@ -313,12 +313,12 @@ Log to stderr as well
     method error(Str $format, *@args) {
         self.log(Error, $format, @args);
     }
-    
+
     #| log at priority C<Warning>
     method warning(Str $format, *@args) {
         self.log(Warning, $format, @args);
     }
-    
+
     #| log at priority C<Notice>
     method notice(Str $format, *@args) {
         self.log(Notice, $format, @args);
@@ -328,7 +328,7 @@ Log to stderr as well
     method info(Str $format, *@args) {
         self.log(Info, $format, @args);
     }
-    
+
     #| log at priority C<Debug>
     method debug(Str $format, *@args) {
         self.log(Info, $format, @args);
@@ -344,6 +344,6 @@ Log to stderr as well
     submethod DESTROY {
         _closelog();
     }
-    
+
 }
 # vim: expandtab shiftwidth=4 ft=perl6

@@ -19,7 +19,7 @@ Log::Syslog::Native - access to POSIX syslog facility
 
    my $logger = Log::Syslog::Native.new(facility => Log::Syslog::Native::Mail);
 
-   $logger->warning("Couldn't activate wormhole interface");
+   $logger.warning("Couldn't activate wormhole interface");
 
 =end code
 

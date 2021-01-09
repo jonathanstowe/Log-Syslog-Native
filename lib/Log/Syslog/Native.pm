@@ -287,8 +287,7 @@ Log to stderr as well
     submethod BUILD(:$!ident = $*PROGRAM-NAME, :$option, :$facility) {
         $!option = $option // Pid +| ODelay;
         $!facility = $facility // Local0;
-        my $i = $!ident;
-        explicitly-manage($i);
+        my $i = explicitly-manage($!ident);
         _openlog($i, $!option, $!facility);
     }
 

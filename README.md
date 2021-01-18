@@ -1,8 +1,8 @@
 # Log::Syslog::Native
 
-Provide access to the Native syslog facility on Unix-like systems for Perl 6
+Provide access to the Native syslog facility on Unix-like systems for Raku
 
-[![Build Status](https://travis-ci.org/jonathanstowe/Log-Syslog-Native.svg?branch=master)](https://travis-ci.org/jonathanstowe/Log-Syslog-Native)
+![Build Status](https://github.com/jonathanstowe/Log-Syslog-Native/workflows/CI/badge.svg)
 
 ## Synopsis
 
@@ -33,8 +33,7 @@ in their standard runtime library.
 Currently there is no dedicated test to determine whether your platform is
 supported, the unit tests will simply fail horribly.
 
-Assuming you have a working Rakudo Perl6 installation you should be able to
-install this with *zef* :
+Assuming you have a working Rakudo installation you should be able to install this with *zef* :
 
     # From the source directory
    
@@ -67,4 +66,4 @@ This is free software.
 
 Please see the [LICENCE](LICENCE) file in the distribution.
 
-© Jonathan Stowe 2015, 2016, 2017, 2019
+© Jonathan Stowe 2015, 2016, 2017, 2019, 2021

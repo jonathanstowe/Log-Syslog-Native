@@ -54,7 +54,7 @@ detected or if there is an un-recognised C<%> format code in the format.
 
 
 Whilst the POSIX C<syslog> function is documented to be able to accept a
-format and a variadic list of values, this is currently emulated with Perl's
+format and a variadic list of values, this is currently emulated with Raku's
 builtin C<sprintf> due to a native call limitation  so the acceptable format
 string may differ from the system documentation.
 
@@ -75,7 +75,7 @@ your system, alter how and where the messages are logged to.
 
 =end pod
 
-class Log::Syslog::Native:ver<0.0.9>:auth<github:jonathanstowe>:api<1.0> {
+class Log::Syslog::Native:ver<0.1.0>:auth<github:jonathanstowe>:api<1.0> {
 
 =begin pod
 
@@ -344,4 +344,4 @@ Log to stderr as well
         _closelog();
     }
 }
-# vim: expandtab shiftwidth=4 ft=perl6
+# vim: expandtab shiftwidth=4 ft=raku

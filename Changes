@@ -1,3 +1,5 @@
+v0.1.1	Sun  7 Aug 09:46:28 BST 2022
+	* Upload to zef repository
 v0.1.0		Sun 17 Jan 13:03:51 GMT 2021
 	* Fix explicitly-manage routine usage ( from Mikhail Khorkov )
     * Some light renaming
@@ -13,3 +15,4 @@ v0.0.5		Thu Jan 28 23:28:01 2016 +0000
 	* Fix Int declarations
 	* Upversion
 	* Add auth and ver to class declaration
+

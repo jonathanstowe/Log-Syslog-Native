@@ -42,7 +42,7 @@
               "children": [
                 {
                   "type": "file",
-                  "name": "Native.pm"
+                  "name": "Native.rakumod"
                 }
               ],
               "purpose": null,

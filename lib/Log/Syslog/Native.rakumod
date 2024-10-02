@@ -75,7 +75,7 @@ your system, alter how and where the messages are logged to.
 
 =end pod
 
-class Log::Syslog::Native:ver<0.1.0>:auth<github:jonathanstowe>:api<1.0> {
+class Log::Syslog::Native:ver<0.1.2>:auth<zef:jonathanstowe>:api<1.0> {
 
 =begin pod
 
@@ -287,8 +287,8 @@ Log to stderr as well
     submethod BUILD(:$!ident = $*PROGRAM-NAME, :$option, :$facility) {
         $!option = $option // Pid +| ODelay;
         $!facility = $facility // Local0;
-        my $i = explicitly-manage($!ident);
-        _openlog($i, $!option, $!facility);
+        explicitly-manage($!ident);
+        _openlog($!ident, $!option, $!facility);
     }
 
     #| log at priority C<Emergency>

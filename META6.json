@@ -1,6 +1,6 @@
 {
   "provides": {
-    "Log::Syslog::Native": "lib/Log/Syslog/Native.pm"
+    "Log::Syslog::Native": "lib/Log/Syslog/Native.rakumod"
   },
   "depends": [
   ],
@@ -20,7 +20,7 @@
   ],
   "auth": "zef:jonathanstowe",
   "description": "Provide logging to POSIX native syslog facility",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "name": "Log::Syslog::Native",
   "build-depends": [
   ],
